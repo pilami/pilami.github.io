@@ -1,0 +1,98 @@
+
+<!DOCTYPE html> 
+<html> 
+  <head> 
+  <meta charset="utf-8">
+  <title>Book App!</title> 
+  <meta name="description" content="An app for books marketplace!">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+  <!-- Handlebars.js to handle the dynamic text!-->
+  
+  <script src="js/handlebars.js"></script>
+  <script src="js/admin.js"></script>
+
+</head> 
+<body> 
+
+
+
+<div  data-role="page" id="Appviewid"> 
+  <div data-role="header">
+    <h1>Welcome to BooksApp!</h1>
+  </div>
+  <div data-role="content" class='main-container'> 
+ 
+ <script type="text/x-handlebars-template" id="login-tpl" >
+      <header id="header"></header>
+      <div class="login">
+        <form class="login-form">
+          <h2>Log In</h2>
+          <div class="error" style="display:none"></div>
+          <input type="text" id="login-username" placeholder="Username" />
+          <input type="password" id="login-password" placeholder="Password" />
+          <button>Log In</button>
+        </form>
+
+        <form class="signup-form">
+          <h2>Sign Up</h2>
+          <div class="error" style="display:none"></div>
+          <input type="text" id="signup-username" placeholder="Username" />
+          <input type="password" id="signup-password" placeholder="Create a Password" />
+          <button>Sign Up</button>
+        </form>
+      </div>
+    </script>
+
+  <!-- Login page ends! -->
+
+
+
+
+  <script id="welcome-tpl" type="text/x-handlebars-template">   
+
+    <h2>Signed in as {{username}}! <a href="#" class="log-out">Log out</a></h2>
+    <p> Welcome to BooksApp! Here is a search bar for you. Use it to find book by title </p>
+    <input type="text" id="searchinput" placeholder= "{{{username}}}, What do you want to search today?"  autofocus="">
+    <button type="submit" class="list-all">List all</button>
+    
+
+
+    
+  </script><!-- Welcome page ends! -->
+ 
+   <script id="books-tpl" type="text/x-handlebars-template">
+    <h2>Here are some of the books available today!</h2>
+    {{#each book}}
+      <div class="book-post">
+        <h2 class="book-post-title"><a href="{{Title}}">{{Title}}</a></h2>
+        <div>{{{Author}}}</div>
+        <div>{{{ShortDesc}}}</div>
+      </div>
+      {{/each}}
+    </script>
+
+     <script id="books-tpl-detail" type="text/x-handlebars-template">
+      <div class="book-post-detail">
+        <h2 class="book-post-title-detail"><a href="#">{{Title}}</a></h2>
+        <div>{{{Author}}}</div>
+        <div>Serial Number: {{{Serial}}}</div>
+        <div>{{{LongDesc}}}</div>
+        <div>Owner: {{{Owner}}}</div>
+      </div>
+    </script>
+
+
+
+
+  </div>
+
+
+
+</div>
+
+
+</body>
+</html>

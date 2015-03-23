@@ -1,0 +1,76 @@
+
+<!DOCTYPE html> 
+<html> 
+  <head> 
+  <meta charset="utf-8">
+  <title>Book App!</title> 
+  <meta name="description" content="An app for books marketplace!">
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+  <!-- Handlebars.js to handle the dynamic text!-->
+  
+  <script src="js/handlebars.js"></script>
+  <script src="js/bookapp.js"></script>
+  
+
+</head> 
+<body> 
+
+
+<!-- All pages listing! -->
+<div  data-role="page" id="homepage"> 
+  <div data-role="header">
+    <h1>All books!</h1>
+  </div><!-- /header -->
+
+  <div data-role="content" class='main-container'> 
+    <p>Down here are the list of available books</p>    
+
+    <script id="books-tpl" type="text/x-handlebars-template">
+    {{#each book}}
+      <div class="book-post">
+
+
+        <h2 class="book-post-title"><a href="{{Title}}">{{Title}}</a></h2>
+        <div>{{{Author}}}</div>
+        <div>{{{ShortDesc}}}</div>
+      </div>
+      {{/each}}
+    </script>
+  </div><!-- /content -->
+
+  <div data-role="footer">
+    <h4>Page developed in JQueryMobile and Parse by Sai</h4>
+  </div>
+</div> <!-- /Main page ends-->
+
+
+
+<!-- Details of each book -->
+<div data-role="page" id="book-details-page">
+  <div data-role="header" >
+    <a href="#homepage">Go Back!</a>
+  </div>
+
+  <div data-role="content" class='book-details-container'>
+     <script id="books-tpl-detail" type="text/x-handlebars-template">
+      <div class="book-post-detail">
+        <h2 class="book-post-title-detail"><a href="#">{{Title}}</a></h2>
+        <div>{{{Author}}}</div>
+        <div>Serial Number: {{{Serial}}}</div>
+        <div>{{{LongDesc}}}</div>
+        <div>Owner: {{{Owner}}}</div>
+      </div>
+    </script>
+  </div>
+
+ <div data-role="footer">
+    <h4>Page developed in JQueryMobile and Parse by Sai</h4>
+  </div><!-- /footer -->
+</div>
+
+
+</body>
+</html>
