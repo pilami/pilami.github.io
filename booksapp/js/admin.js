@@ -1,10 +1,10 @@
 $(function() {
-	console.log("Connected to admin server!");
+  console.log("Connected to admin server!");
   Parse.$ = jQuery;
 
     // Replace this line with the one on your Quickstart Guide Page
   Parse.initialize("rPBJ1iZaE4jOnyvY9SvU6srf4JsYL3H0Ib3WPJUZ", "22oh9N3dDdWqixLxrF31Qa3dOxLd3jiS41sSYp7P");
- 	
+  
 
 
  var LoginView = Parse.View.extend({
@@ -81,16 +81,44 @@ $(function() {
   //instance
   
 
-  
+  var DetailView = Parse.View.extend({
+
+        template: Handlebars.compile($('#books-tpl-detail').html()),
+
+        events: {
+          "click .log-out": "logOut",
+          "click .list-all": "listAll",
+          
+
+        },
+
+        render: function(){
+            this.$el.html(this.template());
+        },
+
+
+
+      });
 
 //New view for books!
 var BooksView = Parse.View.extend({
-  
+  events:{
+    "click .book-post-title": "gotopage",
+  },
   template : Handlebars.compile( $('#books-tpl').html() ),
   render: function(){
     var collection = {book: this.collection.toJSON()};
     this.$el.html(this.template(collection));
-  }
+  },
+
+  gotopage: function(){
+        console.log("I need to do something here?");
+        var detailView = new DetailView({ collection: books });
+              booksView.render();
+              $('.main-container').html(booksView.el);
+       }
+
+
 });
 
   var WelcomeView = Parse.View.extend({
@@ -100,6 +128,7 @@ var BooksView = Parse.View.extend({
         events: {
           "click .log-out": "logOut",
           "click .list-all": "listAll",
+          
 
         },
 
@@ -131,8 +160,8 @@ var BooksView = Parse.View.extend({
             }
           });
 
-       }
-
+       },
+       
 
 
       });
