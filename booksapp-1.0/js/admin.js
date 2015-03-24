@@ -1,10 +1,10 @@
 $(function() {
-  console.log("Connected to admin server!");
+	console.log("Connected to admin server!");
   Parse.$ = jQuery;
 
     // Replace this line with the one on your Quickstart Guide Page
   Parse.initialize("rPBJ1iZaE4jOnyvY9SvU6srf4JsYL3H0Ib3WPJUZ", "22oh9N3dDdWqixLxrF31Qa3dOxLd3jiS41sSYp7P");
-  
+ 	
 
 
  var LoginView = Parse.View.extend({
@@ -99,6 +99,7 @@ $(function() {
 var BooksView = Parse.View.extend({
   events:{
     "click .book-post-title": "gotopage",
+    "click .back-button": "goBack",
   },
   template : Handlebars.compile( $('#books-tpl').html() ),
   render: function(){
@@ -107,11 +108,41 @@ var BooksView = Parse.View.extend({
   },
 
   gotopage: function(){
-        console.log("I need to do something here?" );
+        
+        var title = this.$(".book-post-title" ).attr("id");
+        console.log("Need to show details of "+ title );
+        var book = Parse.Object.extend("Book");
+        var query = new Parse.Query(book);
+        query.equalTo("Title", title);
+
+        
+        query.find({
+          success: function(results) {
+            
+            // Do something with the returned Parse.Object values
+            for (var i = 0; i < results.length; i++) { 
+              var object = results[i];
+              alert(object.id + ' - ' + object.get('Title'));
+            }
+          },
+          error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+          }
+        });
+
 
         var detailView = new DetailView();
         //detailView.render();
        // $('.main-container').html(detailView.el);
+       },
+       goBack: function(){
+
+            var user =  Parse.User.current();
+
+             var welcomeView = new WelcomeView({ model: user });
+            welcomeView.render();
+            $('.main-container').html(welcomeView.el);
+
        }
 
 
@@ -124,6 +155,7 @@ var BooksView = Parse.View.extend({
         events: {
           "click .log-out": "logOut",
           "click .list-all": "listAll",
+          "keypress #searchinput":  "searchOnEnter",
         },
 
         render: function(){
@@ -155,7 +187,54 @@ var BooksView = Parse.View.extend({
           });
 
        },
-       
+    searchOnEnter: function(e) {
+      // var self = this;
+       if (e.keyCode != 13) return;
+       var searchquery = this.$("#searchinput").val();
+      console.log("You entered: "+ searchquery);
+      // this.todos.create({
+      //   content: this.input.val(),
+      //   order:   this.todos.nextOrder(),
+      //   done:    false,
+      //   user:    Parse.User.current(),
+      //   ACL:     new Parse.ACL(Parse.User.current())
+      // });
+
+      // this.input.val('');
+      // this.resetFilters();
+      this.$("#searchinput").val('');
+      var book = Parse.Object.extend("Book");
+      var query = new Parse.Query(book);
+      //query.equalTo("Title", "searchquery");
+      query.exists("Title");
+      query.find({
+        success: function(results) {
+          var books = new Books();
+          console.log("Successfully retrieved " + results.length + " boo!");
+          // Do something with the returned Parse.Object values
+          for (var i = 0; i < results.length; i++) { 
+            var object = results[i];
+            if(object.get('Title') == searchquery){
+              console.log(object.id + ' - ' + object.get('Title'));
+              books.add(object) ;
+            }
+
+          }
+            //var books = new Books(results);
+            
+            var booksView = new BooksView({ collection: books });
+             booksView.render();
+              $('.main-container').html(booksView.el);
+
+        },
+        error: function(error) {
+          console.log("Error: " + error.code + " " + error.message);
+        }
+      });
+
+    
+
+    }
 
 
       });
