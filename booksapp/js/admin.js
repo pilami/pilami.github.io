@@ -85,12 +85,7 @@ $(function() {
 
         template: Handlebars.compile($('#books-tpl-detail').html()),
 
-        events: {
-          "click .log-out": "logOut",
-          "click .list-all": "listAll",
-          
-
-        },
+        
 
         render: function(){
             this.$el.html(this.template());
@@ -112,10 +107,11 @@ var BooksView = Parse.View.extend({
   },
 
   gotopage: function(){
-        console.log("I need to do something here?");
-        var detailView = new DetailView({ collection: books });
-              booksView.render();
-              $('.main-container').html(booksView.el);
+        console.log("I need to do something here?" );
+
+        var detailView = new DetailView();
+        //detailView.render();
+       // $('.main-container').html(detailView.el);
        }
 
 
@@ -128,8 +124,6 @@ var BooksView = Parse.View.extend({
         events: {
           "click .log-out": "logOut",
           "click .list-all": "listAll",
-          
-
         },
 
         render: function(){
