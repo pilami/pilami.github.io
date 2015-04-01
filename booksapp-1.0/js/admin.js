@@ -179,6 +179,7 @@ var BooksView = Parse.View.extend({
               console.log("Created books object!");
               var booksView = new BooksView({ collection: books });
               booksView.render();
+
               $('.main-container').html(booksView.el);
             },
             error: function(books, error){
@@ -214,8 +215,18 @@ var BooksView = Parse.View.extend({
           // Do something with the returned Parse.Object values
           for (var i = 0; i < results.length; i++) { 
             var object = results[i];
+            console.log("checking match between: "+ object.get('Title') + " "+ searchquery);
             if(object.get('Title') == searchquery){
               console.log(object.id + ' - ' + object.get('Title'));
+
+
+//              var file = object.get("thumbnail").url;
+               //object.set("thumburl", "yeahright");
+  //             console.log("This is the url : "+ file);
+               //document.getElementById("booimage").innerHTML = file.url;
+
+
+
               books.add(object) ;
             }
 

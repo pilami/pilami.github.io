@@ -55,10 +55,8 @@
 
     <h2>Signed in as {{username}}! <a href="#" class="log-out">Log out</a></h2>
     <p> Welcome to BooksApp! Here is a search bar for you. Use it to find book by title </p>
-    <div><span><input type="text" id="searchinput" placeholder= "{{{username}}}, What do you want to search today?"  autofocus=""></span>
-      <button type="submit" class="list-all">List all</button>
-    </div>
-    
+    <input type="text" id="searchinput" placeholder= "{{{username}}}, What do you want to search today?"  autofocus="">
+    <button type="submit" class="list-all">List all</button>
     
 
 
@@ -70,6 +68,9 @@
     <h2>Here are some of the books available today!</h2>
     {{#each book}}
       <div class="book-post">
+        
+        <img class="someClass" id="booimage" src="{{thumburl}}">
+        
         <h2 class="book-post-title" id="{{Title}}">{{Title}}</h2>
         <div>{{{Author}}}</div>
         <div>{{{ShortDesc}}}</div>
@@ -93,9 +94,7 @@
   </div>
 
 
-<div data-role="footer">
-    <span>Created using jQueryMobile and Parse by Sai</span>
-  </div>
+
 </div>
 
 
